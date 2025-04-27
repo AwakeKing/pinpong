@@ -33,6 +33,7 @@ class GameSprite(sprite.Sprite):
 
         # каждый спрайт должен хранить свойство rect - прямоугольник, в который он вписан
         self.rect = self.image.get_rect()
+        
         self.rect.x = player_x
         self.rect.y = player_y
  
@@ -60,8 +61,9 @@ class Player(GameSprite):
 class Enemy(GameSprite):
     # движение врага
     def update(self):
+        
         self.rect.y += self.speed
-        self.rect.x += self.speed
+        self.rect.x += -5
         global lost
         # исчезает, если дойдет до края экрана
         if self.rect.y > win_height - 40 or self.rect.y < 0:
@@ -92,6 +94,7 @@ while run:
  
 
     if not finish:
+
         window.blit(background, (0,0))
         ball.reset()
         ball.update()
@@ -100,5 +103,8 @@ while run:
         rocket2.reset()
         rocket2.update2()
         display.update()
-
+        if ball.rect.x > win_width or ball.rect.x < 0:
+            finish = True
+            run = False
     time.delay(50)
+
